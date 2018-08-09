@@ -42,5 +42,5 @@ How to run:
 - ng serve
 
 How to start:
-- localhost:5000
+- http://localhost:4200
 
