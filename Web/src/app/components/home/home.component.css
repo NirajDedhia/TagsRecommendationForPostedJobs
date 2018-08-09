@@ -1,0 +1,41 @@
+textarea { 
+    resize: none; 
+}
+
+.customizeButton {
+    width:80%; 
+    height:9vh;
+    border-radius:5px;
+    font-size: 24px;
+    font-family: 'Times New Roman', Times, serif;
+    color: #FFF;
+    text-align: center;
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+
+.primary {
+    background-color:cornflowerblue; 
+}
+
+.primary:hover {
+    background-color:rgb(66, 100, 173); 
+}
+
+.warn {
+    background-color:tomato; 
+}
+
+.warn:hover {
+    background-color:rgb(179, 58, 58); 
+}
+
+.success {
+    background-color:limegreen; 
+}
+
+.success:hover {
+    background-color:seagreen; 
+}

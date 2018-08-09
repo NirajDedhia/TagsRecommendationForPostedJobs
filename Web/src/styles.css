@@ -1,0 +1,12 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+.toolbar{
+    background-color:  rgba(2, 201, 45, 0.466);
+    border-radius: 3px;
+    color: white;
+
+}
+
+.toolbar-spacer{
+    flex: 1 1 auto;
+}

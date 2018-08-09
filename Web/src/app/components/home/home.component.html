@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="col-sm-8" style="margin-top:5vh; padding:2%; border:gray solid 1px; border-radius:5px">
+    <div class="col-sm-12">
+        <mat-card-title>
+        <h1>Job Description</h1>
+      </mat-card-title>
+      <mat-card-content>
+        <textarea style="width:90%" rows="10" placeholder="Enter Job description here." [(ngModel)]='jobDescription'>
+        </textarea>
+      </mat-card-content>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="customizeButton primary" (click)="knn()">K-nearest neighbor</div>
+    </div>
+      
+    <div class="col-sm-6">
+      <div class="customizeButton primary" (click)="nn()">Neural network</div>
+    </div>
+    
+    <div class="col-sm-6">
+      <div class="customizeButton success" (click)="compare()">Compare</div>
+    </div>
+    
+    <div class="col-sm-6">
+      <div class="customizeButton warn" (click)="clear()">Clear all</div>
+    </div>
+
+  </div>
+
+  <div class="col-sm-4" style="margin-top:5vh;">
+    <div *ngIf="isKNN" style="border:gray solid 1px; border-radius:5px; padding:2%">
+      <h1>KNN prediction</h1>
+      <ul>
+          <li *ngFor="let tag of knnTags">{{ tag }}</li>
+      </ul>
+    </div>
+    <br>
+    <div *ngIf="isNN" style="border:gray solid 1px; border-radius:5px; padding:2%">
+      <h1>NN prediction</h1>
+      <ul>
+          <li *ngFor="let tag of nnTags">{{ tag }}</li>
+      </ul>
+    </div>
+  </div>
+</div>

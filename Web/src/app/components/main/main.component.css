@@ -1,0 +1,18 @@
+.example-fill-remaining-space {
+    /* This fills the remaining space, by using flexbox. 
+       Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
+  }
+
+.mat-toolbar {
+  background-color: #00897b; 
+  color:white
+}
+
+.mat-focused .mat-form-field-label {
+  color: #00897b !important;
+  }
+  
+  .mat-form-field-ripple {
+  color: #5cb53f !important;
+  }
