@@ -12,6 +12,7 @@ train_jobs = []
 train_tags = []
 tfidf = ""
 
+# Loading data and formatting it from excel sheet.
 def loadData():
 
     global train_jobs
@@ -36,6 +37,8 @@ def loadData():
 
             train_tags.append(list)
 
+# It is the text procesor tf_idf
+# Finds signature words and computes individuals score.
 def tf_idf():
     global tfidf
     global train_jobs
@@ -43,6 +46,7 @@ def tf_idf():
     tfidf = TfidfVectorizer(tokenizer=tokenize, min_df=3, max_df=0.90, max_features=2000, use_idf=True, sublinear_tf=True)
     tfidf.fit(train_jobs)
 
+# Tokenizer used by tfidf
 def tokenize(text):
     #cachedStopWords = stopwords.words("english")
     tokens = nltk.word_tokenize(text)
@@ -52,6 +56,7 @@ def tokenize(text):
         stems.append(PorterStemmer().stem(item))
     return stems
 
+# collects training set
 def get_train_set():
     global tfidf
     global train_jobs
@@ -59,7 +64,7 @@ def get_train_set():
 
     return tfidf.transform(train_jobs), MultiLabelBinarizer().fit_transform(train_tags)
 
-
+# Finds k nearest jobs of provided job using euclidean distance.
 def KNN(jobs, predict, k=3):
     distances = []
     for i in range(0,len(jobs)):
@@ -71,6 +76,7 @@ def KNN(jobs, predict, k=3):
 def getKey(item):
     return item[0]
 
+# It computes the confidence value for every tags for the provided job.
 def MAP(similarJobs, y_train, k):    
     predictedTagsCounter = [0,0,0,0]
     
@@ -89,6 +95,7 @@ def MAP(similarJobs, y_train, k):
     
     return (predictedTagsCounter)
 
+# called by api to predicts tags
 def predictByKNN(job):
 
     loadData()
@@ -101,7 +108,7 @@ def predictByKNN(job):
 
     return prediction(x_train, y_train, job)
 
-
+# Uses the models and predicts the a set of tags using confidence value.
 def prediction(x_train, y_train, job):
     
     global tfidf

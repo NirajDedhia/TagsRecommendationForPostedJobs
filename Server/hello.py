@@ -8,10 +8,15 @@ graph = ""
 
 app = Flask(__name__)
 
+# The method was created to test the api.
+# It returns the confirmation that the api is up and running.
 @app.route("/")
 def hello():
-    return "Hello World!"
+    return "Congratulations! I am alive!"
 
+# The method is used to train the neural network.
+# Following method is being called when we start the server.
+# It stores the trained neural network model and tfidf model.
 @app.route('/trainNN', methods=['GET'])
 def NN():
     global NNModel
@@ -21,6 +26,9 @@ def NN():
     NNModel, tfidf, graph = trainNeuralNetwork()
     return "Hello World! Neural Network has been trained"
 
+# The method is used to predict a set of tags by neural network.
+# It takes a job description and using the stored models
+# it predicts a set of tags.
 @app.route('/predictionByNN', methods=['POST'])
 def predictTagsNN():
     global NNModel
@@ -35,6 +43,8 @@ def predictTagsNN():
     return jsonify(tags = predicted)
 
 
+# The method is used to predict a set of tags by K nearest neighbor.
+# It takes a job description and predicts a set of tags from the k similar jobs.
 @app.route('/predictionByKNN', methods=['POST'])
 def predictTagsKNN():
 
@@ -44,13 +54,3 @@ def predictTagsKNN():
     predicted = predictByKNN(job)
 
     return jsonify(tags = predicted)
-
-@app.route('/', methods=['GET','POST'])
-def index():
-    if(request.method == 'POST'):
-        json = request.get_json()
-        return jsonify({'your a value ':json['a']}), 201
-    else:
-        return jsonify({'your a value ':'undefined'})
-
-

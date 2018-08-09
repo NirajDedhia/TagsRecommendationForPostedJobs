@@ -16,7 +16,7 @@ train_jobs = []
 train_tags = []
 tfidf = ""
 
-
+# Loading data and formatting it from excel sheet.
 def loadData():
 
     global train_jobs
@@ -41,6 +41,8 @@ def loadData():
 
             train_tags.append(list)
 
+# It is the text procesor tf_idf
+# Finds signature words and computes individuals score.
 def tf_idf():
     global tfidf
     global train_jobs
@@ -48,6 +50,7 @@ def tf_idf():
     tfidf = TfidfVectorizer(tokenizer=tokenize, min_df=3, max_df=0.90, max_features=2000, use_idf=True, sublinear_tf=True)
     tfidf.fit(train_jobs)
 
+# Tokenizer used by tfidf
 def tokenize(text):
     #cachedStopWords = stopwords.words("english")
     tokens = nltk.word_tokenize(text)
@@ -57,6 +60,7 @@ def tokenize(text):
         stems.append(PorterStemmer().stem(item))
     return stems
 
+# collects training set
 def get_train_set():
     global tfidf
     global train_jobs
@@ -64,7 +68,7 @@ def get_train_set():
 
     return tfidf.transform(train_jobs), MultiLabelBinarizer().fit_transform(train_tags)
 
-
+# Methods computes the accuracy, precision and recall
 def checkAccuracy(y_test, y_test_predicted):
     TP = 0
     TN = 0
@@ -89,6 +93,7 @@ def checkAccuracy(y_test, y_test_predicted):
     
     return accuracy, precision, recall, f1
 
+# Create the neural network model and to train it.
 def nnModel(x_train, y_train):
     model = Sequential()
     # Input Layer
@@ -109,7 +114,7 @@ def nnModel(x_train, y_train):
 
     return model
 
-
+# The method uses neural network model and train it.
 def trainNeuralNetwork():
 
     global tfidf
@@ -124,6 +129,7 @@ def trainNeuralNetwork():
 
     return nnModel(x_train, y_train), tfidf, tf.get_default_graph()
 
+# It uses the neural network model to predicts a set of tags.
 def predictByNN(tfidf, model, graph, job):
 
     features = tfidf.transform([job])
